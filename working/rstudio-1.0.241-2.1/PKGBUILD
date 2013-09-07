@@ -1,0 +1,47 @@
+# Contributor: and <and@ebrilo.jp>
+# Contributor: gbc921 < gbc921 at gmail dot com >
+
+license=('unknown')
+arch=('i686' 'x86_64')
+pkgname=rstudio
+pkgver=1.0.241
+pkgrel=1
+pkgdesc="R-Studio for Linux is powerful and cost-effective data recovery software. This is DEMO version limited to files smaller than 64 KB. Enter your registration key into this version to unlock the full version of R-Studio for Linux."
+url=http://www.r-tt.com/data_recovery_linux
+makedepends=('rpmextract')
+
+# define name and architecture variables
+_pkg=rsl_en_1
+[ "$CARCH" = "i686" ] && _arch="i386"
+[ "$CARCH" = "x86_64" ] && _arch="x86_64"
+
+source=(http://www.r-tt.com/downloads/${_pkg}_${_arch}.rpm)
+
+[ "${_arch}" = "i386" ] && md5sums=('6c7ed0e59d9a0f149db391bcc22b926b')
+[ "${_arch}" = "x86_64" ] && md5sums=('fce9a91f4eeb8b4e958f33781dcb3a53')
+
+
+build() {
+    cd "${pkgdir}"
+    
+    rpmextract.sh "../${_pkg}_${_arch}.rpm"
+
+    mv usr/local opt
+    install -d usr/share/applications
+    
+    sed 's/\/usr\/local/\/opt/g' opt/R-Studio/share/rtt-rstudio.desktop | sed 's/Icon=rtt-rstudio/Icon=\/opt\/R-Studio\/share\/logo_48.png/g' > usr/share/applications/rtt-rstudio.desktop
+    
+    rm -f opt/R-Studio/share/rtt-rstudio.desktop
+    rm -rf usr/share/menu
+    rm -f usr/bin/rstudio
+    
+    sed 's/\/usr\/local/\/opt/g' opt/R-Studio/bin/rstudio | sed 's/sudo/su/g' | sed 's/\/opt\/R-Studio\/share\/rtt-rstudio.desktop/\/usr\/share\/applications\/rtt-rstudio.desktop/g' > usr/bin/rstudio
+    
+    rm -f opt/R-Studio/bin/rstudio
+    mv usr/bin/rstudio opt/R-Studio/bin/rstudio   
+    chmod 755 opt/R-Studio/bin/rstudio
+    ln -s /opt/R-Studio/bin/rstudio usr/bin/rstudio
+    rm -f opt/R-Studio/lib/librs_linux_r.so
+    ln -s rs_linux_r.so opt/R-Studio/lib/librs_linux_r.so
+}
+# vim:set et ts=4 sw=4
