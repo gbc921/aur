@@ -1,0 +1,10 @@
+# Compiled directories #
+########################
+# ignore any level of subdirectories
+**/pkg
+**/src
+
+/trash/*
+
+# ignore any compressed file
+*.tar.*
