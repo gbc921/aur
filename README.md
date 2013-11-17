@@ -1,4 +1,4 @@
 aur
 ===
 
-My Archlinux PKGBUILDs
+My [Archlinux PKGBUILDs](https://aur.archlinux.org/packages/?SeB=m&K=gbc921)
