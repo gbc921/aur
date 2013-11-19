@@ -8,3 +8,6 @@
 
 # ignore any compressed file
 *.tar.*
+
+# ignore any .git directory
+**/.git
