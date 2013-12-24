@@ -1,7 +1,7 @@
-wget progress bar patch
+[wget progress bar patch](https://aur.archlinux.org/packages/wget-git-progress-bar-patch/)
 ===
 
-This patch makes wget uses a smaller and less informative progress bar when downloading some file from a URL like this:
+This patch makes [wget](http://www.gnu.org/software/wget/wget.html) uses a smaller and less informative progress bar when downloading some file from a URL like this:
 ```
 $ wget -nv  http://ftp.gnu.org/gnu/wget/wget-1.14.tar.xz
 100%[==============================================================>] 1,584,060    147KB/s   in 12s    
