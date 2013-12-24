@@ -2,7 +2,6 @@
 # Contributor: Chinmay Kamat <https://github.com/cdkamat>
 # Contributor: Judd Vinet <jvinet@zeroflux.org>
 # Contributor: Darshit Shah <darnir@gmail.com>
-# Modified By:  Chinmay Kamat <chinmaykamat@gmail.com>
 
 _gitname=wget
 pkgname=wget-git-progress-bar-patch
@@ -37,7 +36,6 @@ build() {
   ./bootstrap --gnulib-srcdir=../gnulib
   ./configure --prefix=/usr --without-included-regex --enable-threads=posix --enable-dependency-tracking --with-ssl=openssl --enable-nls --sysconfdir=/etc
   make
-  #make || make || return 1
 }
 
 package() {
