@@ -27,6 +27,6 @@ Saving to: ‘wget-1.14.tar.xz’
 
 The idea came from the original pacman downloader, as it produces just the neede output. However, if one uses wget as an external downloader on ```XferCommand```, lots of outputs are printed.
 
-Then, [this post](http://mytechrants.wordpress.com/2009/11/26/wget-add-progressbar-nv/) came with a smart solution, patching wget to have a ```-nv -no-verbose``` option.
+Then, [this post](http://mytechrants.wordpress.com/2009/11/26/wget-add-progressbar-nv/) came with a smart solution, patching wget to have a better output when using the ```-nv -no-verbose``` option.
 
-I just made a small fix in the patch and PKGBUILD to match the more up-to-date [wget-git](https://aur.archlinux.org/packages/wget-git/).
+I just made a small fix in the patch and PKGBUILD to match the more up-to-date [wget-git](https://aur.archlinux.org/packages/wget-git/) package.
