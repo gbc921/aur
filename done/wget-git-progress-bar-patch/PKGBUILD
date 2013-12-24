@@ -1,11 +1,12 @@
+# Maintainer: Gabriel B. Casella <gbc921@gmail.com>
+# Contributor: Chinmay Kamat <https://github.com/cdkamat>
 # Contributor: Judd Vinet <jvinet@zeroflux.org>
 # Contributor: Darshit Shah <darnir@gmail.com>
-# Contributor: Gabriel B. Casella <gbc921@gmail.com>
 # Modified By:  Chinmay Kamat <chinmaykamat@gmail.com>
 
 _gitname=wget
 pkgname=wget-git-progress-bar-patch
-pkgver=v1.14.98.gcb358c0
+pkgver=v1.14.99.gfb23bc0
 pkgrel=1
 pkgdesc="A network utility to retrieve files from the Web with progress bar patch"
 arch=('i686' 'x86_64')
@@ -30,7 +31,7 @@ pkgver() {
 }
 
 build() {
-  patch -Np0 -i "$startdir"/wget_nv_pbar.diff || return 1
+  patch -Np0 -i "$srcdir"/../wget_nv_pbar.diff || return 1
   
   cd $_gitname
   ./bootstrap --gnulib-srcdir=../gnulib
