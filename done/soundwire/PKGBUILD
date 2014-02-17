@@ -1,0 +1,41 @@
+# Maintainer: Jan Hrdina <jan.hrdka@gmail.com>
+# Contributor: Gabriel B. Casella <gbc921@gmail.com>
+
+pkgname=soundwire
+pkgver=1.9
+pkgrel=1
+pkgdesc="Wirelessly transmit any audio from your PC to your Android phone or other PCs"
+url="http://georgielabs.net"
+arch=('x86_64' 'i686')
+license=('custom')
+depends=('portaudio' 'qt4' 'curl')
+optdepends=('pavucontrol')
+install='soundwire.install'
+source=("http://download770.mediafire.com/171ry7klojsg/0xcy75dmord8d87/SoundWire_Server_linux_all.zip")
+md5sums=('f6b23e1942060f80eea88b82d10d6371')
+
+prepare()
+{
+  cd "${srcdir}"
+
+  if test "$CARCH" == x86_64; then
+    tar -xzf SoundWire_Server_linux64.tar.gz
+  else
+    tar -xzf SoundWire_Server_linux32.tar.gz
+  fi
+}
+
+package() {
+  cd "${srcdir}/SoundWireServer"
+
+  sed -i 's/sw-icon.xpm/soundwire/' SoundWire-Server.desktop
+
+  install -Dm644 license.txt "$pkgdir/usr/share/doc/$pkgname/license.txt"
+  install -Dm644 opus_license.txt "$pkgdir/usr/share/doc/$pkgname/opus_license.txt"
+  install -Dm644 README.txt "$pkgdir/usr/share/doc/$pkgname/README.txt"
+  install -Dm644 sw-icon.xpm "$pkgdir/usr/share/icons/hicolor/256x256/apps/$pkgname.xpm"
+  install -Dm644 SoundWire-Server.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -D SoundWireServer "$pkgdir/usr/bin/SoundWireServer"
+}
+
+# vim:set ts=2 sw=2 et:
