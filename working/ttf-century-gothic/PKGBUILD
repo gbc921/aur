@@ -1,0 +1,20 @@
+# Maintainer: Gabriel B. Casella <gbc921@gmail.com>
+
+pkgname=ttf-century-gothic
+pkgver=1.0
+pkgrel=1
+pkgdesc="TrueType Century Gothic font"
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('fontconfig' 'xorg-font-utils')
+source=("https://www.dropbox.com/s/xhdy2e8r6n62eqx/gothic.ttf")
+install=$pkgname.install
+
+sha256sums=('3b54cdf8a8e2406791f917a78990e56624d47da88a3d4de0360a3a225720bd70')
+
+package() {
+  install -d "${pkgdir}"/usr/share/fonts/TTF
+  install -m644 gothic.tty "${pkgdir}"/usr/share/fonts/TTF
+}
+
+# vim:set ts=2 sw=2 et:
