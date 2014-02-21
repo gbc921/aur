@@ -4,9 +4,10 @@ pkgname=ttf-century-gothic
 pkgver=1.0
 pkgrel=1
 pkgdesc="TrueType Century Gothic font"
-arch=('i686' 'x86_64')
+arch=('any')
 license=('GPL')
 depends=('fontconfig' 'xorg-font-utils')
+url=("http://fontsforweb.com/font/show/?id=9785")
 source=("https://www.dropbox.com/s/xhdy2e8r6n62eqx/gothic.ttf")
 install=$pkgname.install
 
