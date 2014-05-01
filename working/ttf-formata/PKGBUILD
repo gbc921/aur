@@ -1,0 +1,23 @@
+# Maintainer: Gabriel B. Casella <gbc921@gmail.com>
+
+pkgname=ttf-formata
+pkgver=1.0
+pkgrel=1
+pkgdesc="TrueType Formata font"
+arch=('any')
+license=('GPL')
+depends=('fontconfig' 'xorg-font-utils')
+url=("http://www.fonts.com/font/berthold/formata-bq")
+source=(formata.tar.gz) # upload to dropbox
+install=$pkgname.install
+
+sha256sums=('SKIP')
+
+package() {
+  cd "${srcdir}/formata"
+  install -d "${pkgdir}"/usr/share/fonts/TTF
+  install -m644 Formata-Bold.ttf "${pkgdir}"/usr/share/fonts/TTF
+  install -m644 Formata-*.otf "${pkgdir}"/usr/share/fonts/TTF
+}
+
+# vim:set ts=2 sw=2 et:
