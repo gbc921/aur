@@ -1,0 +1,50 @@
+# Maintainer: twa022 <twa022 at gmail dot com>
+# Contributor: Gabriel B Casella <gbc921@gmail.com>
+
+_pkgname=cinnamon-bluetooth
+pkgname=${_pkgname}-git
+pkgver=13.18262be
+pkgrel=1
+epoch=1
+pkgdesc="The Cinnamon Bluetooth Module"
+arch=(i686 x86_64)
+url="https://github.com/linuxmint/cinnamon-bluetooth"
+license=(GPL)
+depends=('gtk3' 'cinnamon-control-center' 'gnome-bluetooth')
+makedepends=('gnome-common' 'git')
+provides=("${_pkgname}")
+conflicts=("${_pkgname}")
+options=(!emptydirs)
+install=cinnamon-bluetooth.install
+source=("${_pkgname}"::git+https://github.com/linuxmint/cinnamon-bluetooth.git
+        'cc-bluetooth-panel-archlinux.patch' )
+sha256sums=('SKIP'
+            '5e67edab9fa6f8f738dc74deec5155e4f86cca457d6c3889a671ba76a91fa429')
+
+pkgver() {
+  cd "${srcdir}"/"${_pkgname}"
+  echo $(git rev-list --count master).$(git rev-parse --short master)
+}
+prepare() {
+  cd "${srcdir}"
+  patch -Np1 -i cc-bluetooth-panel-archlinux.patch || return 1
+}
+
+build() {
+  cd "${srcdir}"/"${_pkgname}"
+  
+  autoreconf -fi
+
+  ./configure --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var 
+
+  make
+}
+
+package() {
+  cd "${srcdir}"/"${_pkgname}"
+  make DESTDIR="$pkgdir" install
+}
+
+# vim:set ts=2 sw=2 et:

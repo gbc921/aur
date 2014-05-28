@@ -1,0 +1,106 @@
+--- src/cinnamon-bluetooth/panels/bluetooth/cc-bluetooth-panel.c	2014-05-28 00:19:02.600957635 -0300
++++ src/cinnamon-bluetooth/panels/bluetooth/cc-bluetooth-panel-archlinux.c	2014-05-28 00:18:48.187623648 -0300
+@@ -32,9 +32,9 @@
+ 
+ #include <bluetooth-client.h>
+ #include <bluetooth-utils.h>
+-#include <bluetooth-killswitch.h>
++//#include <bluetooth-killswitch.h>
+ #include <bluetooth-chooser.h>
+-#include <bluetooth-plugin-manager.h>
++//#include <bluetooth-plugin-manager.h>
+ 
+ CC_PANEL_REGISTER (CcBluetoothPanel, cc_bluetooth_panel)
+ 
+@@ -52,7 +52,7 @@
+ 	GtkWidget           *chooser;
+ 	char                *selected_bdaddr;
+ 	BluetoothClient     *client;
+-	BluetoothKillswitch *killswitch;
++	//BluetoothKillswitch *killswitch;
+ 	gboolean             debug;
+ 	GHashTable          *connecting_devices;
+ };
+@@ -110,7 +110,7 @@
+ 
+ 	self = CC_BLUETOOTH_PANEL (object);
+ 	g_clear_object (&self->priv->builder);
+-	g_clear_object (&self->priv->killswitch);
++	//g_clear_object (&self->priv->killswitch);
+ 	g_clear_object (&self->priv->client);
+ 
+     if (self->priv->connecting_devices != NULL) {
+@@ -420,8 +420,8 @@
+ 
+ 	state = gtk_switch_get_active (GTK_SWITCH (WID ("switch_bluetooth")));
+ 	g_debug ("Power switched to %s", state ? "off" : "on");
+-	bluetooth_killswitch_set_state (self->priv->killswitch,
+-					state ? 1 : 0);
++	//bluetooth_killswitch_set_state (self->priv->killswitch,
++	//				state ? 1 : 0);
+ }
+ 
+ static void
+@@ -451,7 +451,7 @@
+ 		      "default-adapter", &path,
+ 		      "default-adapter-powered", &powered,
+ 		      NULL);
+-	state = bluetooth_killswitch_get_state (self->priv->killswitch);
++	//state = bluetooth_killswitch_get_state (self->priv->killswitch);
+ 
+ 	g_debug ("Updating power, default adapter: %s (powered: %s)",
+ 		 path ? path : "(none)",
+@@ -459,7 +459,7 @@
+ 		 //bluetooth_killswitch_state_to_string (state));
+ 
+ 	if (path == NULL &&
+-	    bluetooth_killswitch_has_killswitches (self->priv->killswitch) &&
++	    //bluetooth_killswitch_has_killswitches (self->priv->killswitch) &&
+ 	    state != 2) {
+ 		g_debug ("Default adapter is unpowered, but should be available");
+ 		sensitive = TRUE;
+@@ -790,15 +790,15 @@
+ 	cc_bluetooth_panel_update_powered_state (self);
+ }
+ 
+-static void
+-killswitch_changed (BluetoothKillswitch      *killswitch,
+-		                            int       state,
+-		    CcBluetoothPanel         *self)
+-{
+-	g_debug ("Killswitch changed to state '%s' (%d)", bluetooth_killswitch_state_to_string (state) , state);
+-	cc_bluetooth_panel_update_state (self);
+-	cc_bluetooth_panel_update_power (self);
+-}
++//static void
++//killswitch_changed (//BluetoothKillswitch      *killswitch,
++//		                            int       state,
++//		    CcBluetoothPanel         *self)
++//{
++//	g_debug ("Killswitch changed to state '%s' (%d)", bluetooth_killswitch_state_to_string (state) , state);
++//	cc_bluetooth_panel_update_state (self);
++//	cc_bluetooth_panel_update_power (self);
++//}
+ 
+ static void
+ cc_bluetooth_panel_init (CcBluetoothPanel *self)
+@@ -810,7 +810,7 @@
+ 	self->priv = BLUETOOTH_PANEL_PRIVATE (self);
+ 
+ 	bluetooth_plugin_manager_init ();
+-	self->priv->killswitch = bluetooth_killswitch_new ();
++	//self->priv->killswitch = bluetooth_killswitch_new ();
+ 	self->priv->client = bluetooth_client_new ();
+ 	self->priv->connecting_devices = g_hash_table_new_full (g_str_hash,
+ 								g_str_equal,
+@@ -904,8 +904,8 @@
+ 	/* Set the initial state of power */
+ 	g_signal_connect (G_OBJECT (WID ("switch_bluetooth")), "notify::active",
+ 			  G_CALLBACK (power_callback), self);
+-	g_signal_connect (G_OBJECT (self->priv->killswitch), "state-changed",
+-			  G_CALLBACK (killswitch_changed), self);
++	//g_signal_connect (G_OBJECT (self->priv->killswitch), "state-changed",
++	//		  G_CALLBACK (killswitch_changed), self);
+ 	cc_bluetooth_panel_update_power (self);
+ 
+ 	gtk_widget_show_all (GTK_WIDGET (self));
