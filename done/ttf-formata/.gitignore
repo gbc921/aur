@@ -1,2 +1,2 @@
-# exclude binary as it will be sourced from GitHub URL
-!formata.tar.gz
+# one needs to download the package
+formata.tar.gz
