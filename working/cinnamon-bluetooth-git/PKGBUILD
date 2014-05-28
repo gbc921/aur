@@ -27,6 +27,8 @@ pkgver() {
 }
 prepare() {
   cd "${srcdir}"
+  # patches Bluetooth Killswitch depreciation (http://goo.gl/JMTfD2)
+  # and patches https://github.com/linuxmint/muffin/issues/141
   patch -Np1 -i cc-bluetooth-panel-archlinux.patch || return 1
 }
 
