@@ -44,3 +44,4 @@ build() {
     rm -f opt/R-Studio/lib/librs_linux_r.so
     ln -s rs_linux_r.so opt/R-Studio/lib/librs_linux_r.so
 }
+# vim:set ts=2 sw=2 et:
