@@ -1,5 +1,5 @@
---- cc-bluetooth-panel.c	2014-05-28 13:02:20.136209763 -0300
-+++ cc-bluetooth-panel-archlinux.c	2014-05-28 13:03:36.702873729 -0300
+--- cc-bluetooth-panel-original.c	2014-05-29 13:45:44.464300367 -0300
++++ cc-bluetooth-panel.c	2014-05-29 13:50:05.417624497 -0300
 @@ -32,7 +32,7 @@
  
  #include <bluetooth-client.h>
@@ -38,17 +38,20 @@
  }
  
  static void
-@@ -451,7 +451,7 @@
+@@ -451,15 +451,15 @@
  		      "default-adapter", &path,
  		      "default-adapter-powered", &powered,
  		      NULL);
 -	state = bluetooth_killswitch_get_state (self->priv->killswitch);
 +	//state = bluetooth_killswitch_get_state (self->priv->killswitch);
  
- 	g_debug ("Updating power, default adapter: %s (powered: %s), killswitch: %s",
+-	g_debug ("Updating power, default adapter: %s (powered: %s), killswitch: %s",
++	g_debug ("Updating power, default adapter: %s (powered: %s)",
  		 path ? path : "(none)",
-@@ -459,7 +459,7 @@
- 		 bluetooth_killswitch_state_to_string (state));
+-		 powered ? "on" : "off",
+-		 bluetooth_killswitch_state_to_string (state));
++		 powered ? "on" : "off");
++		 //bluetooth_killswitch_state_to_string (state));
  
  	if (path == NULL &&
 -	    bluetooth_killswitch_has_killswitches (self->priv->killswitch) &&
