@@ -1,0 +1,49 @@
+# Maintainer: twa022 <twa022 at gmail dot com>
+# Based on gnome-session PKGBUILD
+
+_pkgname=cinnamon-session
+pkgname=${_pkgname}-git
+pkgver=112.912a071
+pkgrel=1
+pkgdesc="The Cinnamon Session Handler"
+arch=(i686 x86_64)
+license=(GPL LGPL)
+depends=('cinnamon-desktop' 'upower')
+makedepends=('intltool' 'mesa' 'json-glib' 'xtrans' 'gnome-common' 'git')
+conflicts=("${_pkgname}")
+provides=("${_pkgname}")
+options=('!emptydirs')
+install=${_pkgname}.install
+url="http://cinnamon.linuxmint.com/"
+source=(${_pkgname}::git+https://github.com/linuxmint/cinnamon-session.git
+        remove_sessionmigration.patch
+        timeout.patch)
+
+pkgver() {
+  cd $_pkgname
+  echo $(git rev-list --count master).$(git rev-parse --short master)
+}
+
+build() {
+  cd $_pkgname
+
+  # Do not try to execute session-migration script (it's specific to Ubuntu)
+  patch -Np1 -i ../remove_sessionmigration.patch
+  
+  # Increase timeout, for slow machines
+  patch -Np1 -i ../timeout.patch
+
+  ./autogen.sh --prefix=/usr --sysconfdir=/etc \
+      --localstatedir=/var --libexecdir=/usr/lib/cinnamon-session \
+      --sbindir=/usr/bin --disable-schemas-compile --enable-systemd
+  make
+}
+
+package() {
+  cd $_pkgname
+  make DESTDIR="$pkgdir" install
+}
+
+sha256sums=('SKIP'
+            'f3c0bc1a3debfaa686230f19ba371b08dd4645064d90ead0c34f465c7d416736'
+            'ef421a14814c7858490b3a806568ab4ec8a0dc21d390e94f801771c1261bb24a')
