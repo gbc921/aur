@@ -17,19 +17,26 @@ conflicts=("${_pkgname}")
 options=(!emptydirs)
 install=cinnamon-bluetooth.install
 source=("${_pkgname}"::git+https://github.com/linuxmint/cinnamon-bluetooth.git
-        'cc-bluetooth-panel-archlinux.patch' )
+        'cc-bluetooth-panel-archlinux.patch'
+        'bluetooth-plugin-manager.c'
+        'bluetooth-plugin-manager.h')
 sha256sums=('SKIP'
-            '5e67edab9fa6f8f738dc74deec5155e4f86cca457d6c3889a671ba76a91fa429')
+            '50d1ac34956a9bc1c08f62c1d09e6e644ca9a52e9481ecf9bbfb06e7494af691'
+            'd6be4c73728a66a6ee3b7e95a2e7fb5a59ce16b8c8ec99b117bf08d83909b7ba'
+            'b62cc78664b382e3f1b1f51f8a80db16fe4d18cc57b6c26c4fdd621eec1ca473')
 
 pkgver() {
   cd "${srcdir}"/"${_pkgname}"
   echo $(git rev-list --count master).$(git rev-parse --short master)
 }
+
 prepare() {
-  cd "${srcdir}"
+  cd "${srcdir}"/"${_pkgname}"/panels/bluetooth/
   # patches Bluetooth Killswitch depreciation (http://goo.gl/JMTfD2)
+  patch -Np0 -i "${srcdir}"/../cc-bluetooth-panel-archlinux.patch || return 1
   # and patches https://github.com/linuxmint/muffin/issues/141
-  patch -Np1 -i cc-bluetooth-panel-archlinux.patch || return 1
+  # even though is depreciated <https://mail.gnome.org/archives/commits-list/2013-December/msg01065.html>
+  cp "${srcdir}"/../bluetooth-plugin-manager.* "${srcdir}"/"${_pkgname}"/panels/bluetooth/
 }
 
 build() {
