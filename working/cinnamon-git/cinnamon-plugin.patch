@@ -1,0 +1,13 @@
+--- cinnamon-plugin.c	2014-06-02 11:25:34.359318967 -0300
++++ cinnamon-plugin-bluetooth-hack.c	2014-06-02 11:26:22.632650593 -0300
+@@ -411,7 +411,7 @@
+ extern GType bluetooth_applet_get_type(void);
+ void _cinnamon_link_to_bluetooth(void);
+ 
+-void _cinnamon_link_to_bluetooth(void) {
+-  bluetooth_applet_get_type();
+-}
++//void _cinnamon_link_to_bluetooth(void) {
++//  bluetooth_applet_get_type();
++//}
+ #endif
