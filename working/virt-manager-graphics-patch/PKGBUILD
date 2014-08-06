@@ -1,0 +1,81 @@
+# $Id$
+# Maintainer: Gabriel B. Casella <gbc921@gmail.com>
+# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: Daniel Micay <danielmicay@gmail.com>
+# Contributor: Jonathan Wiersma <archaur at jonw dot org>
+
+pkgname=virt-manager-graphics-patch
+_pkgname=virt-manager
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Virtual Manager patched with graphical patch <https://bugs.archlinux.org/index.php?do=details&action=details.addvote&task_id=41088>"
+arch=('any')
+url="http://virt-manager.et.redhat.com"
+license=('GPL')
+depends=('dbus-python' 'libvirt' 'libxml2' 'gtk-vnc' 'rarian'
+         'gconf' 'yajl' 'librsvg' 'python2' 'python2-gconf' 'libuser'
+         'python2-ipy' 'newt-syrup' 'openbsd-netcat' 'x11-ssh-askpass'
+         'gnome-icon-theme' 'graphite' 'python2-ipaddr' 'spice-gtk3'
+         'libvirt-glib' 'python2-gobject' 'urlgrabber' 'vte3'
+         'libvirt-python')
+makedepends=('gnome-doc-utils' 'intltool>=0.35.0')
+conflicts=('virt-manager' 'virtinst')
+replaces=('virt-manager' 'virtinst')
+install=virt-manager.install
+source=("http://virt-manager.et.redhat.com/download/sources/$_pkgname/$_pkgname-$pkgver.tar.gz"
+        '0001-gfxdetails-Show-port-number-for-active-autoport-VM-b.patch'
+        '0002-connection-Hook-into-domain-balloon-event-bz-1081424.patch'
+        '0003-details-Fix-showing-vcpus-values-in-customize-dialog.patch'
+        '0004-details-Fix-changing-graphics-type-bz-1083903.patch'
+        '0005-createpool-Clarify-iscsi-IQN-fields-bz-1084011.patch'
+        '0006-error-Don-t-log-redundant-details-bits.patch'
+        '0007-engine-More-work-to-fix-cascading-error-dialogs.patch'
+        '0008-filesystem-Fix-target-validation-when-editing-device.patch'
+        '0009-details-Explicit-warn-that-format-doesn-t-change-ima.patch'
+        '0010-snapshots-Fix-screenshot-with-qxl-spice-bz-1089780.patch'
+        '0011-Fix-using-storage-when-the-directory-name-contains-w.patch'
+        '0012-packageutils-Fix-install-when-one-package-is-already.patch'
+        )
+md5sums=('4741c0d93d69cef5f936b2ea2d8348c5'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+        )
+
+prepare() {
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  patch -Np1 -i ../0001-gfxdetails-Show-port-number-for-active-autoport-VM-b.patch
+  patch -Np1 -i ../0002-connection-Hook-into-domain-balloon-event-bz-1081424.patch
+  patch -Np1 -i ../0003-details-Fix-showing-vcpus-values-in-customize-dialog.patch
+  patch -Np1 -i ../0004-details-Fix-changing-graphics-type-bz-1083903.patch
+  patch -Np1 -i ../0005-createpool-Clarify-iscsi-IQN-fields-bz-1084011.patch
+  patch -Np1 -i ../0006-error-Don-t-log-redundant-details-bits.patch
+  patch -Np1 -i ../0007-engine-More-work-to-fix-cascading-error-dialogs.patch
+  patch -Np1 -i ../0008-filesystem-Fix-target-validation-when-editing-device.patch
+  patch -Np1 -i ../0009-details-Explicit-warn-that-format-doesn-t-change-ima.patch
+  patch -Np1 -i ../0010-snapshots-Fix-screenshot-with-qxl-spice-bz-1089780.patch
+  patch -Np1 -i ../0011-Fix-using-storage-when-the-directory-name-contains-w.patch
+  patch -Np1 -i ../0012-packageutils-Fix-install-when-one-package-is-already.patch
+}
+
+build() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  python2 setup.py build
+}
+
+package() {
+  cd "$srcdir/$_pkgname-$pkgver"
+  python2 setup.py install --root "$pkgdir"
+}
+
+# vim:set ts=2 sw=2 et:
