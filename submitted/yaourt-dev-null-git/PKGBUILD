@@ -17,10 +17,8 @@ optdepends=('aurvote: vote for your favorite AUR packages'
 provides=('yaourt' 'yaourt-git')
 conflicts=('yaourt' 'yaourt-git')
 backup=('etc/yaourtrc')
-source=('git+https://github.com/archlinuxfr/yaourt.git'
-        pkgbuild.sh.in.patch)
-md5sums=('SKIP'
-        '206182b156087ed8d2f18c5cae6b4ad4')
+source=('git+https://github.com/archlinuxfr/yaourt.git')
+md5sums=('SKIP')
 _gitname=yaourt
 
 pkgver () {
