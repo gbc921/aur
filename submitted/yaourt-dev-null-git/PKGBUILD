@@ -19,6 +19,7 @@ conflicts=('yaourt' 'yaourt-git')
 backup=('etc/yaourtrc')
 source=('git+https://github.com/archlinuxfr/yaourt.git')
 md5sums=('SKIP')
+install=yaourt-dev-null-git.install
 _gitname=yaourt
 
 pkgver () {
