@@ -3,7 +3,7 @@
 # Contributor: Julien MISCHKOWITZ <wain@archlinux.fr>
 
 pkgname=yaourt-dev-null-git
-pkgver=1.8.1.r26.ga945c4d
+pkgver=1.9.r3.gfe1bcdd
 pkgrel=1
 pkgdesc="A pacman wrapper with extended features and AUR support. Patched to redirect (successfully) makepkg output to /dev/null"
 arch=('any')
