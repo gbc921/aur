@@ -6,6 +6,10 @@
 
 /trash/*
 
+# ignore any binary file
+*.deb.*
+*.rpm.*
+
 # ignore any compressed file
 *.tar.*
 *.7z
